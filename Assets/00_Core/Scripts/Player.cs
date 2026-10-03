@@ -121,7 +121,7 @@ public class Player : MonoBehaviour, ICanOwnProjectile
         float distanceLerpWeight = (_currentCharge - _minCharge) / (_maxCharge - _minCharge);
         _cursorDistance = Mathf.Lerp(_minCursorDistance, _maxCursorDistance, distanceLerpWeight);
 
-        _cursorGO.transform.position = transform.position + (Vector3)PolarToCart(_currentAngle, _cursorDistance);
+        _cursorGO.transform.position = transform.position + (Vector3)MyMath.PolarToCart(_currentAngle, _cursorDistance);
     }
 
     // ----- Inputs Callbacks ----- \\
@@ -174,18 +174,6 @@ public class Player : MonoBehaviour, ICanOwnProjectile
         }
     }
 
-    private Vector2 PolarToCart(float angle, float distance)
-    {
-        angle *= Mathf.Deg2Rad;
-
-        return new Vector2(Mathf.Cos(angle) * distance, Mathf.Sin(angle) * distance);
-    }
-
-    private float GetVectorAngleDegree(Vector2 vect)
-    {
-        return Mathf.Rad2Deg * Mathf.Atan2(vect.y, vect.x);
-    }
-
     private void GetShootPattern()
     {
         _upgrades = GameManager.Instance.GetUpgrades();
@@ -201,15 +189,15 @@ public class Player : MonoBehaviour, ICanOwnProjectile
                 Arrows arrowCompo = arrow.GetComponent<Arrows>();
 
                 Vector2 infoDir = info.direction.normalized;
-                float infoAngle = GetVectorAngleDegree(infoDir);
+                float infoAngle = MyMath.GetVectorAngleDegree(infoDir);
                 float angle = _currentAngle + infoAngle;
 
-                Vector2 dir = PolarToCart(angle, 1);
+                Vector2 dir = MyMath.PolarToCart(angle, 1);
 
-                float offsetAngle = GetVectorAngleDegree(info.posOffSet);
+                float offsetAngle = MyMath.GetVectorAngleDegree(info.posOffSet);
                 float offsetDist = info.posOffSet.magnitude;
 
-                Vector2 offset = transform.position + (Vector3)PolarToCart(offsetAngle + angle, offsetDist);
+                Vector2 offset = transform.position + (Vector3)MyMath.PolarToCart(offsetAngle + angle, offsetDist);
 
                 arrowCompo.Init(this, _currentCharge, dir, offset);
             }
