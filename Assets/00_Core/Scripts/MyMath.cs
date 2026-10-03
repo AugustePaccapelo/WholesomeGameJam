@@ -15,4 +15,10 @@ public struct MyMath
     {
         return Mathf.Rad2Deg * Mathf.Atan2(vect.y, vect.x);
     }
+
+    static public float InverseLerp(float value, float min, float max)
+    {
+        if ((max - min) == 0) return 1.0f;
+        return (value - min) / (max - min);
+    }
 }
