@@ -18,9 +18,9 @@
                 },
                 {
                     "name": "Shoot",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "b6ada58b-4a94-48a7-bfa5-0381b2ec1a07",
-                    "expectedControlType": "Digital",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true,
@@ -118,7 +118,7 @@
                 {
                     "name": "",
                     "id": "5f628a27-8bc8-4abb-84ba-daf459e32d7f",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -141,17 +141,6 @@
                     "name": "",
                     "id": "312f2e6c-12c0-486c-8239-ae51c69be7e1",
                     "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cursor",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0e11eb38-7a9e-4b7a-8b0e-f884cda58b79",
-                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

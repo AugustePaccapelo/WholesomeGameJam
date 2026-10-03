@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System.Linq;
 
 // Author : Auguste Paccapelo
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ICanOwnProjectile
 {
     // ---------- VARIABLES ---------- \\
 
@@ -42,10 +44,16 @@ public class Player : MonoBehaviour
 
     // ----- Shooting ----- \\
 
+    [SerializeField] private GameObject _arrowPrefab;
+
     private bool _isShooting;
     // In Attack per Seconds
     [SerializeField] private float _attackSpeed = 0.5f;
     private float _shootTimer = 0;
+
+    private float _damages = 1.0f;
+
+    private List<SOUpgrade> _upgrades;
 
     // ---------- FUNCTIONS ---------- \\
 
@@ -82,6 +90,13 @@ public class Player : MonoBehaviour
         Move();
         MoveCursor();
         Shoot();
+    }
+
+    // ----- Interfaces ----- \\
+
+    public float GetDamagesDone()
+    {
+        return _damages;
     }
 
     // ----- My Functions ----- \\
@@ -154,13 +169,51 @@ public class Player : MonoBehaviour
         if (shoot)
         {
             _shootTimer = 0;
-            Debug.Log("shoot");
+            GetShootPattern();
+            SpawnArrows();
         }
     }
 
     private Vector2 PolarToCart(float angle, float distance)
     {
+        angle *= Mathf.Deg2Rad;
+
         return new Vector2(Mathf.Cos(angle) * distance, Mathf.Sin(angle) * distance);
+    }
+
+    private float GetVectorAngleDegree(Vector2 vect)
+    {
+        return Mathf.Rad2Deg * Mathf.Atan2(vect.y, vect.x);
+    }
+
+    private void GetShootPattern()
+    {
+        _upgrades = GameManager.Instance.GetUpgrades();
+    }
+
+    private void SpawnArrows()
+    {
+        foreach (SOUpgrade upgrade in _upgrades)
+        {
+            foreach (ShootPosInfo info in upgrade.ShootPattern)
+            {
+                GameObject arrow = Instantiate(_arrowPrefab);
+                Arrows arrowCompo = arrow.GetComponent<Arrows>();
+
+                Vector2 infoDir = info.direction.normalized;
+                float infoAngle = GetVectorAngleDegree(infoDir);
+                float angle = _currentAngle + infoAngle;
+
+                Vector2 dir = PolarToCart(angle, 1);
+
+                float offsetAngle = GetVectorAngleDegree(info.posOffSet);
+                float offsetDist = info.posOffSet.magnitude;
+
+                Vector2 offset = transform.position + (Vector3)PolarToCart(offsetAngle + angle, offsetDist);
+
+                arrowCompo.Init(this, _currentCharge, dir, offset);
+            }
+        }
     }
 
     // ----- Destructor ----- \\

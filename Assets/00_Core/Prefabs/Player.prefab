@@ -174,13 +174,15 @@ MonoBehaviour:
   _cursorMove: {fileID: -1918935154872859150, guid: ea8f5ed50735b3a4f99a2923eb49e57f, type: 3}
   _speed: 10
   _cursorGO: {fileID: 5549766907570253476}
-  _cursorRotationSpeed: 10
+  _cursorRotationSpeed: 360
   _cursorChargeSpeed: 5
-  _minCursorDistance: 1
-  _maxCursorDistance: 3
-  _minCharge: 0.5
-  _maxCharge: 3
+  _minCursorDistance: 1.5
+  _maxCursorDistance: 3.5
+  _minCharge: 0.1
+  _maxCharge: 1
   _startAngle: 0
+  _arrowPrefab: {fileID: 4486353735304380618, guid: 61c597405f111434e9afde058c6ea80e, type: 3}
+  _attackSpeed: 0.5
 --- !u!1001 &6111665432483250425
 PrefabInstance:
   m_ObjectHideFlags: 0
