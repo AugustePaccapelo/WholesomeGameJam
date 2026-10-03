@@ -109,3 +109,6 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 .vsconfig
 .vscode
+.idea
+Assets/00_Core/Scripts/Tools/ScriptTemplatesLoaderTool.cs
+Assets/00_Core/Scripts/Tools/ScriptTemplatesLoaderTool.cs.meta
